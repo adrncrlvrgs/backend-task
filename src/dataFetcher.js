@@ -5,7 +5,6 @@ const API_URL = "https://uselessfacts.jsph.pl/api/v2/facts/random"; //I Directly
 // but since this is a public API with no sensitive data, I opted for a direct approach.
 
 const MAX_REQUESTS = 50;
-const CONCURRENCY_LIMIT = 10;
 
 async function fetchRandomFact() {
   try {
@@ -13,7 +12,7 @@ async function fetchRandomFact() {
     return response.data;
   } catch (error) {
     console.error("Error fetching random fact:", error.message);
-    throw new Error(`Failed to fetch random fact: ${error.message}`);
+    return null;
   }
 }
 
@@ -23,27 +22,15 @@ async function fetchRandomFacts(count) {
   }
 
   const limitedCount = Math.min(count, MAX_REQUESTS);
-  const facts = [];
-  const queue = [];
+  const promises = Array.from({ length: limitedCount }, () =>
+    fetchRandomFact()
+  );
 
-  for (let i = 0; i < limitedCount; i++) {
-    const promise = fetchRandomFact()
-      .then((fact) => {
-        facts.push(fact);
-      })
-      .catch((error) => {
-        console.error(`Error fetching fact ${i + 1}:`, error.message);
-      });
+  const results = await Promise.allSettled(promises);
 
-    queue.push(promise);
-
-    if (queue.length >= CONCURRENCY_LIMIT) {
-      await Promise.race(queue);
-      queue.splice(queue.indexOf(promise), 1);
-    }
-  }
-
-  await Promise.all(queue);
+  const facts = results
+    .filter((result) => result.status === "fulfilled" && result.value !== null)
+    .map((result) => result.value);
 
   if (facts.length === 0) {
     throw new Error("No facts were fetched successfully.");
@@ -51,5 +38,4 @@ async function fetchRandomFacts(count) {
 
   return facts;
 }
-
 module.exports = { fetchRandomFacts };
