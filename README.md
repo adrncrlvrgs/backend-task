@@ -13,13 +13,13 @@ npm install
 
 ### **Example Usage** 
 
-# Fetch 10 activities and save as JSON
+## Fetch 10 activities and save as JSON
 node src/main.js -n 10 -f json
 
-# Fetch 5 activities and save as CSV
+## Fetch 5 activities and save as CSV
 node src/main.js -n 5 -f csv
 
-# Fetch 15 activities and print to console
+## Fetch 15 activities and print to console
 node src/main.js -n 15 -f console
 
 ## **Dependencies Used**  
