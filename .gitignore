@@ -1,3 +1,6 @@
 node_modules
 dist
 .env
+
+useless_facts.json
+useless_facts.csv
