@@ -3,15 +3,6 @@
 ## **Overview**  
 This is a simple CLI utility that fetches data from the **Useless Facts API** (`https://uselessfacts.jsph.pl/api/v2/facts/random`) a specified number of times and either prints the results to the console, saves them as a JSON file, or saves them as a CSV file.
 
-## Features
-
-- Fetches data from the Bored API 15 times.
-- Displays the fetched data in a table format.
-- Provides three buttons to:
-  - Download JSON: Downloads the data as a JSON file.
-  - Download CSV: Downloads the data as a CSV file.
-  - Print to Console: Prints the data to the browser console.
-
 ## **Getting Started**  
 
 ### **Clone the Repository**  
@@ -19,6 +10,9 @@ This is a simple CLI utility that fetches data from the **Useless Facts API** (`
 - `git clone https://github.com/adrncrlvrgs/backend-task`
 - `cd backend-task`
 - `npm install`
+
+## **Node version used**
+- v21.1.0
 
 ### **Example Usage** 
 
